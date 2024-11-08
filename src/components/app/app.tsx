@@ -3,6 +3,7 @@ import {
   Feed,
   ForgotPassword,
   Login,
+  NotFound404,
   Profile,
   ProfileOrders,
   Register,
@@ -17,11 +18,10 @@ import { Route, Routes } from 'react-router-dom';
 const App = () => (
   <div className={styles.app}>
     <AppHeader />
-    <AppHeader />
     <Routes>
       <Route path='/' element={<ConstructorPage />} />
       <Route path='/feed' element={<Feed />} />
-      <Route path='*' element={<Feed />} />
+      <Route path='*' element={<NotFound404 />} />
 
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
@@ -30,7 +30,7 @@ const App = () => (
       <Route path='/profile' element={<Profile />} />
       <Route path='/profile/orders' element={<ProfileOrders />} />
 
-      <Route
+      {/* <Route
         path='/feed/:number'
         element={<Modal title='' onClose={} children={<OrderInfo />} />}
       />
@@ -41,7 +41,7 @@ const App = () => (
       <Route
         path='/profile/orders/:number'
         element={<Modal title='' onClose={} children={<OrderInfo />} />}
-      />
+      /> */}
     </Routes>
   </div>
 );
