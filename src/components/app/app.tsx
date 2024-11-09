@@ -14,6 +14,7 @@ import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Route, Routes } from 'react-router-dom';
+import { OnlyAuth, OnlyUnAuth } from '../protected-route/protected-route';
 
 const App = () => (
   <div className={styles.app}>
@@ -23,12 +24,24 @@ const App = () => (
       <Route path='/feed' element={<Feed />} />
       <Route path='*' element={<NotFound404 />} />
 
-      <Route path='/login' element={<Login />} />
-      <Route path='/register' element={<Register />} />
-      <Route path='/forgot-password' element={<ForgotPassword />} />
-      <Route path='/reset-password' element={<ResetPassword />} />
-      <Route path='/profile' element={<Profile />} />
-      <Route path='/profile/orders' element={<ProfileOrders />} />
+      <Route path='/login' element={<OnlyUnAuth component={<Login />} />} />
+      <Route
+        path='/register'
+        element={<OnlyUnAuth component={<Register />} />}
+      />
+      <Route
+        path='/forgot-password'
+        element={<OnlyUnAuth component={<ForgotPassword />} />}
+      />
+      <Route
+        path='/reset-password'
+        element={<OnlyUnAuth component={<ResetPassword />} />}
+      />
+      <Route path='/profile' element={<OnlyAuth component={<Profile />} />} />
+      <Route
+        path='/profile/orders'
+        element={<OnlyAuth component={<ProfileOrders />} />}
+      />
 
       {/* <Route
         path='/feed/:number'

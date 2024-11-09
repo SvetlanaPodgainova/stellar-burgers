@@ -24,7 +24,7 @@ export const loginUser = createAsyncThunk(
     const response = await api.loginUserApi({ email, password });
     setCookie('accessToken', response.accessToken);
     localStorage.setItem('refreshToken', response.refreshToken);
-    return response.user;
+    return response;
   }
 );
 
