@@ -1,5 +1,5 @@
 import { api, TLoginData, TRegisterData } from '@api';
-import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 import { setIsAuthChecked, setUser } from './slice';
