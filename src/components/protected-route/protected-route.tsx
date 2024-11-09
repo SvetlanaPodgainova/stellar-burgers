@@ -10,7 +10,7 @@ type TProtectedProps = {
 };
 
 const Protected = ({
-  onlyUnAuth = true,
+  onlyUnAuth = false,
   component
 }: TProtectedProps): React.JSX.Element => {
   const isAuthChecked = useSelector(getIsAuthChecked);
