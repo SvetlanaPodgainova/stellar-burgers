@@ -23,11 +23,6 @@ import { getIsAuthChecked, getUser } from '../../services/user/slice';
 
 const App = () => {
   const dispatch = useDispatch();
-  const user = useSelector(getIsAuthChecked);
-
-  useEffect(() => {
-    console.log('Current user state:', user);
-  }, [user]);
 
   useEffect(() => {
     dispatch(checkUserAuth());

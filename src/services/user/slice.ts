@@ -1,15 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { loginUser, logoutUser, registerUser } from './actions';
+import { loginUser, logoutUser, registerUser, updateUser } from './actions';
 
 type TUserState = {
   user: TUser | null;
   isAuthChecked: boolean;
+  isLoading: boolean;
   error: string | null;
 };
 
 export const initialState: TUserState = {
   user: null,
+  isLoading: false,
   isAuthChecked: false,
   error: null
 };
@@ -27,7 +29,8 @@ export const userSlice = createSlice({
   },
   selectors: {
     getIsAuthChecked: (state) => state.isAuthChecked,
-    getUser: (state) => state.user
+    getUser: (state) => state.user,
+    getIsLoading: (state) => state.isLoading
   },
   extraReducers: (builder) => {
     builder
@@ -59,6 +62,22 @@ export const userSlice = createSlice({
         state.error = action.error.message ?? null;
         state.isAuthChecked = true;
       })
+      // обновление данных
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.isAuthChecked = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.error = null;
+        state.isAuthChecked = true;
+        state.user = action.payload.user;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.error = null;
+        state.isAuthChecked = true;
+        state.error = action.error.message ?? null;
+      })
       // логаут
       .addCase(logoutUser.pending, (state) => {
         state.error = null;
@@ -75,4 +94,4 @@ export const userSlice = createSlice({
 });
 
 export const { setIsAuthChecked, setUser } = userSlice.actions;
-export const { getIsAuthChecked, getUser } = userSlice.selectors;
+export const { getIsAuthChecked, getUser, getIsLoading } = userSlice.selectors;
