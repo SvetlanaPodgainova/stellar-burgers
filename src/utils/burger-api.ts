@@ -239,5 +239,6 @@ export const api = {
   logoutApi,
   registerUserApi,
   getUserApi,
-  updateUserApi
+  updateUserApi,
+  getIngredientsApi
 };
