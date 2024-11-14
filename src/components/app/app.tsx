@@ -15,23 +15,26 @@ import styles from './app.module.css';
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { OnlyAuth, OnlyUnAuth } from '../protected-route/protected-route';
-import { useDispatch } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 import { useEffect } from 'react';
 import { checkUserAuth } from '../../services/user/actions';
-import { useSelector } from 'react-redux';
+
 import { getIsAuthChecked, getUser } from '../../services/user/slice';
 import { getIngredients } from '../../services/ingredients/actions';
+// import { getConstructorItem } from '../../services/constructor/slice';
 
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
+  // const data = useSelector(getConstructorItems);
   const background = location.state?.background;
 
   useEffect(() => {
     dispatch(checkUserAuth());
     dispatch(getIngredients());
+    // console.log(data);
   }, []);
 
   return (
@@ -40,7 +43,6 @@ const App = () => {
       <Routes location={background || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
-        <Route path='*' element={<NotFound404 />} />
         <Route path='*' element={<NotFound404 />} />
 
         <Route path='/login' element={<OnlyUnAuth component={<Login />} />} />
