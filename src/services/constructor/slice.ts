@@ -15,18 +15,57 @@ export const constructorSlice = createSlice({
   name: 'constructor',
   initialState,
   reducers: {
-    addIngredient: (state, action: PayloadAction<TConstructorIngredient>) => {
-      if (action.payload.type === 'bun') {
-        state.bun = action.payload;
-      } else {
-        state.ingredients.push(action.payload);
+    addBun: {
+      reducer: (state, action: PayloadAction<TConstructorIngredient>) => ({
+        bun: action.payload,
+        ingredients: state.ingredients
+      }),
+      prepare: (ingredient: TIngredient) => {
+        const id = nanoid();
+        return {
+          payload: {
+            ...ingredient,
+            id
+          }
+        };
+      }
+    },
+    addIngredient: {
+      reducer: (state, action: PayloadAction<TConstructorIngredient>) => ({
+        bun: state.bun,
+        ingredients:
+          state.ingredients === undefined
+            ? [action.payload]
+            : [...state.ingredients, action.payload]
+      }),
+      prepare: (ingredient: TIngredient) => {
+        const id = nanoid();
+        return {
+          payload: {
+            ...ingredient,
+            id
+          }
+        };
       }
     }
   },
   selectors: {
-    getConstructorItems: (state) => state
+    getBun: (state) => state.bun,
+    getIngredient: (state) => state.ingredients
   }
 });
 
-export const { addIngredient } = constructorSlice.actions;
-export default constructorSlice.reducer;
+export const { addBun, addIngredient } = constructorSlice.actions;
+export const { getBun, getIngredient } = constructorSlice.selectors;
+
+// addIngredient: (state, action: PayloadAction<TConstructorIngredient>) => {
+//   if (action.payload.type === 'bun') {
+//     state.bun = action.payload;
+//   } else {
+//     if (state.ingredients.length === 0) {
+//       state.ingredients = [action.payload];
+//     } else {
+//       state.ingredients.push(action.payload);
+//     }
+//   }
+// }

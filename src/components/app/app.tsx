@@ -19,22 +19,21 @@ import { useDispatch, useSelector } from '../../services/store';
 import { useEffect } from 'react';
 import { checkUserAuth } from '../../services/user/actions';
 
-import { getIsAuthChecked, getUser } from '../../services/user/slice';
 import { getIngredients } from '../../services/ingredients/actions';
-// import { getConstructorItem } from '../../services/constructor/slice';
+import { getBun, getIngredient } from '../../services/constructor/slice';
 
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  // const data = useSelector(getConstructorItems);
+  const data = useSelector(getIngredient);
+  console.log(data);
   const background = location.state?.background;
 
   useEffect(() => {
     dispatch(checkUserAuth());
     dispatch(getIngredients());
-    // console.log(data);
   }, []);
 
   return (
