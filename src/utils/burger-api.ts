@@ -240,5 +240,6 @@ export const api = {
   registerUserApi,
   getUserApi,
   updateUserApi,
-  getIngredientsApi
+  getIngredientsApi,
+  orderBurgerApi
 };

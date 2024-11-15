@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import { useEffect } from 'react';
 import { checkUserAuth } from '../../services/user/actions';
 import { getIngredients } from '../../services/ingredients/actions';
-import { getConstructorIngredients } from '../../services/burgerConstructor/slice';
+import { getConstructorItems } from '../../services/burgerConstructor/slice';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,9 +27,6 @@ const App = () => {
   const location = useLocation();
 
   const background = location.state?.background;
-
-  const data = useSelector(getConstructorIngredients);
-  console.log(data);
 
   useEffect(() => {
     dispatch(checkUserAuth());
@@ -68,10 +65,7 @@ const App = () => {
         path='/feed/:number'
         element={<Modal title='' onClose={} children={<OrderInfo />} />}
       />
-      <Route
-        path='/profile/orders/:number'
-        element={<Modal title='' onClose={} children={<OrderInfo />} />}
-      /> */}
+      */}
       </Routes>
       {background && (
         <Routes>
@@ -82,6 +76,16 @@ const App = () => {
                 title=''
                 onClose={() => navigate('/')}
                 children={<IngredientDetails />}
+              />
+            }
+          />
+          <Route
+            path='/profile/orders/:number'
+            element={
+              <Modal
+                title=''
+                onClose={() => navigate('/')}
+                children={<OrderInfo />}
               />
             }
           />
