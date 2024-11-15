@@ -18,18 +18,18 @@ import { OnlyAuth, OnlyUnAuth } from '../protected-route/protected-route';
 import { useDispatch, useSelector } from '../../services/store';
 import { useEffect } from 'react';
 import { checkUserAuth } from '../../services/user/actions';
-
 import { getIngredients } from '../../services/ingredients/actions';
-import { getBun, getIngredient } from '../../services/constructor/slice';
+import { getConstructorIngredients } from '../../services/burgerConstructor/slice';
 
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const data = useSelector(getIngredient);
-  console.log(data);
   const background = location.state?.background;
+
+  const data = useSelector(getConstructorIngredients);
+  console.log(data);
 
   useEffect(() => {
     dispatch(checkUserAuth());
