@@ -52,7 +52,7 @@ export const constructorSlice = createSlice({
     resetBurgerConstructor: (state) => initialState
   },
   selectors: {
-    getConstructorItems: (state) => state
+    selectConstructorItems: (state) => state
   }
 });
 
@@ -63,4 +63,4 @@ export const {
   deleteIngredient,
   resetBurgerConstructor
 } = constructorSlice.actions;
-export const { getConstructorItems } = constructorSlice.selectors;
+export const { selectConstructorItems } = constructorSlice.selectors;

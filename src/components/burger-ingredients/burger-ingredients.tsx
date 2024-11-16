@@ -5,15 +5,15 @@ import { TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 import { useSelector } from '../../services/store';
 import {
-  getIngredientsSelector,
-  getIsLoading
+  selectIngredients,
+  selectIsLoadingIngredients
 } from '../../services/ingredients/slice';
 import { Preloader } from '@ui';
 
 export const BurgerIngredients: FC = () => {
   /** TODO: взять переменные из стора */
-  const ingredients = useSelector(getIngredientsSelector);
-  const isLoading = useSelector(getIsLoading);
+  const ingredients = useSelector(selectIngredients);
+  const isLoading = useSelector(selectIsLoadingIngredients);
 
   const buns = ingredients.filter((ingredient) => ingredient.type === 'bun');
   const mains = ingredients.filter((ingredient) => ingredient.type === 'main');

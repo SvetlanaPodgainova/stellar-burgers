@@ -2,7 +2,7 @@ import { api } from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const addOrder = createAsyncThunk(
-  'orders/addOrder',
+  'order/addOrder',
   async (data: string[], { rejectWithValue }) => {
     try {
       const res = await api.orderBurgerApi(data);

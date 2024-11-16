@@ -3,22 +3,22 @@ import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useDispatch, useSelector } from '../../services/store';
 import {
-  getConstructorItems,
+  selectConstructorItems,
   resetBurgerConstructor
 } from '../../services/burgerConstructor/slice';
 import { getCookie } from '../../utils/cookie';
-import { getOrderState, resetOrderState } from '../../services/orders/slice';
+import { selectOrder, resetOrderState } from '../../services/order/slice';
 import { useNavigate } from 'react-router-dom';
-import { addOrder } from '../../services/orders/action';
+import { addOrder } from '../../services/order/action';
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const constructorItems = useSelector(getConstructorItems);
-  const orderRequest = useSelector(getOrderState).orderRequest;
-  const orderModalData = useSelector(getOrderState).orderModalData;
+  const constructorItems = useSelector(selectConstructorItems);
+  const orderRequest = useSelector(selectOrder).orderRequest;
+  const orderModalData = useSelector(selectOrder).orderModalData;
 
   const onOrderClick = () => {
     if (!getCookie('accessToken')) {

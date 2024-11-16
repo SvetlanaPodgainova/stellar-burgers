@@ -15,16 +15,17 @@ import styles from './app.module.css';
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { OnlyAuth, OnlyUnAuth } from '../protected-route/protected-route';
-import { useDispatch, useSelector } from '../../services/store';
+import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
 import { checkUserAuth } from '../../services/user/actions';
 import { getIngredients } from '../../services/ingredients/actions';
-import { getConstructorItems } from '../../services/burgerConstructor/slice';
+import { getFeeds } from '../../services/feeds/actions';
 
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  console.log(dispatch(getFeeds()));
 
   const background = location.state?.background;
 
@@ -32,6 +33,10 @@ const App = () => {
     dispatch(checkUserAuth());
     dispatch(getIngredients());
   }, []);
+
+  const onClose = () => {
+    navigate('/');
+  };
 
   return (
     <div className={styles.app}>
@@ -60,12 +65,6 @@ const App = () => {
           element={<OnlyAuth component={<ProfileOrders />} />}
         />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
-
-        {/* <Route
-        path='/feed/:number'
-        element={<Modal title='' onClose={} children={<OrderInfo />} />}
-      />
-      */}
       </Routes>
       {background && (
         <Routes>
@@ -73,8 +72,8 @@ const App = () => {
             path='/ingredients/:id'
             element={
               <Modal
-                title=''
-                onClose={() => navigate('/')}
+                title='Детали ингредиента'
+                onClose={onClose}
                 children={<IngredientDetails />}
               />
             }
@@ -82,11 +81,13 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal
-                title=''
-                onClose={() => navigate('/')}
-                children={<OrderInfo />}
-              />
+              <Modal title='' onClose={onClose} children={<OrderInfo />} />
+            }
+          />
+          <Route
+            path='/feed/:number'
+            element={
+              <Modal title='' onClose={onClose} children={<OrderInfo />} />
             }
           />
         </Routes>
