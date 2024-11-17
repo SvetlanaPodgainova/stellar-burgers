@@ -15,17 +15,15 @@ import styles from './app.module.css';
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { OnlyAuth, OnlyUnAuth } from '../protected-route/protected-route';
-import { useDispatch } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 import { useEffect } from 'react';
 import { checkUserAuth } from '../../services/user/actions';
 import { getIngredients } from '../../services/ingredients/actions';
-import { getFeeds } from '../../services/feeds/actions';
 
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(dispatch(getFeeds()));
 
   const background = location.state?.background;
 
@@ -35,7 +33,7 @@ const App = () => {
   }, []);
 
   const onClose = () => {
-    navigate('/');
+    navigate(-1);
   };
 
   return (

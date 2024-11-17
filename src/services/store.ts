@@ -16,7 +16,8 @@ export const rootReducer = combineSlices(
   ingredientsSlice,
   constructorSlice,
   ordersSlice,
-  feedsSlice
+  feedsSlice,
+  ordersSlice
 );
 
 const store = configureStore({

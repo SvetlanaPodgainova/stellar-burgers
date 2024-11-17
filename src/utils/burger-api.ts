@@ -243,5 +243,6 @@ export const api = {
   getIngredientsApi,
   orderBurgerApi,
   getOrdersApi,
-  getFeedsApi
+  getFeedsApi,
+  getOrderByNumberApi
 };
