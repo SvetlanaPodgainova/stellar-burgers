@@ -1,8 +1,7 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { getIsLoading, getUser } from '../../services/user/slice';
-import { useDispatch } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 import { updateUser } from '../../services/user/actions';
 import { Preloader } from '@ui';
 
