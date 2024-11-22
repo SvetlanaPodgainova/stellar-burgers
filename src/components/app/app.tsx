@@ -13,7 +13,13 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  useLocation,
+  useMatch,
+  useNavigate
+} from 'react-router-dom';
 import { OnlyAuth, OnlyUnAuth } from '../protected-route/protected-route';
 import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
@@ -26,6 +32,10 @@ const App = () => {
   const location = useLocation();
 
   const background = location.state?.background;
+  const feedMatch = useMatch('/feed/:number');
+  const profileOrderMatch = useMatch('/profile/orders/:number');
+  const orderNumber =
+    feedMatch?.params.number || profileOrderMatch?.params.number;
 
   useEffect(() => {
     dispatch(checkUserAuth());
@@ -81,13 +91,21 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal title='' onClose={onClose} children={<OrderInfo />} />
+              <Modal
+                title={`Заказ #${orderNumber}`}
+                onClose={onClose}
+                children={<OrderInfo />}
+              />
             }
           />
           <Route
             path='/feed/:number'
             element={
-              <Modal title='' onClose={onClose} children={<OrderInfo />} />
+              <Modal
+                title={`Заказ #${orderNumber}`}
+                onClose={onClose}
+                children={<OrderInfo />}
+              />
             }
           />
         </Routes>
