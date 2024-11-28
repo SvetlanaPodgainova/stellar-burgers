@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TUser } from '@utils-types';
+import { TUser } from '../../utils/types';
 import { loginUser, logoutUser, registerUser, updateUser } from './actions';
 
 type TUserState = {
@@ -38,6 +38,7 @@ export const userSlice = createSlice({
       .addCase(registerUser.pending, (state) => {
         state.error = null;
         state.isAuthChecked = false;
+        state.isLoading = true;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.error = null;
@@ -52,6 +53,7 @@ export const userSlice = createSlice({
       .addCase(loginUser.pending, (state) => {
         state.error = null;
         state.isAuthChecked = false;
+        state.isLoading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.error = null;

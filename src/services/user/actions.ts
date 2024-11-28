@@ -1,4 +1,4 @@
-import { api, TLoginData, TRegisterData } from '@api';
+import { api, TLoginData, TRegisterData } from '../../utils/burger-api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 import { setIsAuthChecked, setUser } from './slice';

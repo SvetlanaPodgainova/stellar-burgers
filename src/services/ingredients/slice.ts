@@ -1,5 +1,5 @@
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
-import { TIngredient } from '@utils-types';
+import { TIngredient } from '../../utils/types';
 import { getIngredients } from './actions';
 
 type TIngredientsState = {
@@ -8,7 +8,7 @@ type TIngredientsState = {
   error: string | null;
 };
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
   ingredients: [],
   isLoading: false,
   error: null
@@ -26,11 +26,11 @@ export const ingredientsSlice = createSlice({
     builder
       .addCase(getIngredients.pending, (state) => {
         state.isLoading = true;
-        state.error = '';
+        state.error = null;
       })
       .addCase(getIngredients.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.error = '';
+        state.error = null;
         state.ingredients = action.payload;
       })
       .addCase(getIngredients.rejected, (state, action) => {

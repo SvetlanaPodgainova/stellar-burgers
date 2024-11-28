@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TOrder } from '@utils-types';
+import { TOrder } from '../../utils/types';
 import { getOrderByNumber, getOrders } from './action';
 
 type TOrdersState = {
@@ -8,7 +8,7 @@ type TOrdersState = {
   isLoading: boolean;
 };
 
-const initialState: TOrdersState = {
+export const initialState: TOrdersState = {
   orders: [],
   order: null,
   isLoading: false

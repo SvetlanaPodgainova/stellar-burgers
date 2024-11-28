@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TOrder } from '@utils-types';
+import { TOrder } from '../../utils/types';
 import { addOrder } from './action';
 
 type TOrderState = {
@@ -8,7 +8,7 @@ type TOrderState = {
   error: string | null | unknown;
 };
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
   orderRequest: false,
   orderModalData: null,
   error: null
