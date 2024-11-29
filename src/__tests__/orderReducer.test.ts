@@ -11,7 +11,7 @@ const mockOrder = {
         '643d69a5c3f7b9001cfa0942'
       ],
       status: 'done',
-      name: 'Краторный бессмертный spicy бургер',
+      name: 'Cratorny Immortal Spicy Burger',
       createdAt: '2024-11-16T21:42:45.453Z',
       updatedAt: '2024-11-16T21:42:46.346Z',
       number: 59585
@@ -24,7 +24,7 @@ const mockOrder = {
         '643d69a5c3f7b9001cfa0942'
       ],
       status: 'done',
-      name: 'Краторный spicy био-марсианский бургер',
+      name: 'Cratorny Spicy Bio-Martian Burger',
       createdAt: '2024-11-17T21:20:22.311Z',
       updatedAt: '2024-11-17T21:20:23.181Z',
       number: 59637
@@ -33,7 +33,7 @@ const mockOrder = {
       _id: '673a5eaab27b06001c3e8cc3',
       ingredients: ['643d69a5c3f7b9001cfa093d', '643d69a5c3f7b9001cfa093e'],
       status: 'done',
-      name: 'Флюоресцентный люминесцентный бургер',
+      name: 'Fluorescent Luminescent Burger',
       createdAt: '2024-11-17T21:22:50.216Z',
       updatedAt: '2024-11-17T21:22:51.036Z',
       number: 59638
@@ -41,47 +41,49 @@ const mockOrder = {
   ]
 };
 
-const mockState = {
-  orderRequest: true,
-  orderModalData: mockOrder.orders[0],
-  error: 'Some error'
-};
-
-describe('тест orderSlice', () => {
-  it('проверка начального состояния', () => {
+describe('orderSlice tests', () => {
+  it('should verify initial state', () => {
     expect(orderSlice.reducer(undefined, { type: '' })).toEqual(initialState);
   });
 
-  it('проверка сброса состояния resetOrderState', () => {
-    expect(orderSlice.reducer(mockState, { type: '' })).toEqual(mockState);
+  it('should reset state with resetOrderState', () => {
     const action = orderSlice.actions.resetOrderState();
-    const newState = orderSlice.reducer(mockState, action);
-    expect(newState).toEqual(initialState);
+    const state = orderSlice.reducer(initialState, action);
+    expect(state).toEqual(initialState);
   });
 
-  it('тест на загрузку запроса addOrder', () => {
+  it('should handle pending state for addOrder request', () => {
     const action = { type: addOrder.pending.type };
     const state = orderSlice.reducer(initialState, action);
-    expect(state.orderRequest).toBe(true);
+    expect(state).toEqual({
+      ...initialState,
+      orderRequest: true
+    });
   });
 
-  it('тест на выполнение запроса addOrder', () => {
+  it('should handle fulfilled state for addOrder request', () => {
     const action = {
       type: addOrder.fulfilled.type,
       payload: mockOrder
     };
     const state = orderSlice.reducer(initialState, action);
-    expect(state.orderRequest).toBe(false);
-    expect(state.orderModalData).toEqual(mockOrder);
+    expect(state).toEqual({
+      ...initialState,
+      orderRequest: false,
+      orderModalData: mockOrder
+    });
   });
 
-  it('тест на ошибку addOrder', () => {
+  it('should handle error state for addOrder request', () => {
     const action = {
       type: addOrder.rejected.type,
       payload: 'errorMessage'
     };
     const state = orderSlice.reducer(initialState, action);
-    expect(state.orderRequest).toBe(false);
-    expect(state.error).toBe('errorMessage');
+    expect(state).toEqual({
+      ...initialState,
+      orderRequest: false,
+      error: 'errorMessage'
+    });
   });
 });

@@ -4,7 +4,7 @@ import { getIngredients } from '../services/ingredients/actions';
 const mockIngredients = [
   {
     _id: '643d69a5c3f7b9001cfa093f',
-    name: 'Мясо бессмертных моллюсков Protostomia',
+    name: 'Meat of Immortal Mollusks Protostomia',
     type: 'main',
     proteins: 433,
     fat: 244,
@@ -17,7 +17,7 @@ const mockIngredients = [
   },
   {
     _id: '643d69a5c3f7b9001cfa0940',
-    name: 'Говяжий метеорит (отбивная)',
+    name: 'Beef Meteorite (Cutlet)',
     type: 'main',
     proteins: 800,
     fat: 800,
@@ -30,7 +30,7 @@ const mockIngredients = [
   },
   {
     _id: '643d69a5c3f7b9001cfa093d',
-    name: 'Флюоресцентная булка R2-D3',
+    name: 'Fluorescent Bun R2-D3',
     type: 'bun',
     proteins: 44,
     fat: 26,
@@ -43,43 +43,45 @@ const mockIngredients = [
   }
 ];
 
-describe('тест ingredientsSlice', () => {
-  it('проверка начального состояния', () => {
+describe('ingredientsSlice tests', () => {
+  it('should verify initial state', () => {
     expect(ingredientsSlice.reducer(undefined, { type: '' })).toEqual(
       initialState
     );
   });
 
-  it('тест на загрузку getIngredients', () => {
+  it('should handle pending state for getIngredients', () => {
     const action = { type: getIngredients.pending.type };
     const state = ingredientsSlice.reducer(initialState, action);
-    expect(state.isLoading).toBeTruthy();
-    expect(state.error).toBeNull();
+    expect(state).toEqual({
+      ...initialState,
+      isLoading: true
+    });
   });
 
-  it('тест на выполнение getIngredients', () => {
+  it('should handle fulfilled state for getIngredients', () => {
     const action = {
       type: getIngredients.fulfilled.type,
       payload: mockIngredients
     };
-    const state = ingredientsSlice.reducer(
-      { ...initialState, isLoading: true },
-      action
-    );
-    expect(state.isLoading).toBeFalsy();
-    expect(state.error).toBeNull();
+    const state = ingredientsSlice.reducer(initialState, action);
+    expect(state).toEqual({
+      ...initialState,
+      isLoading: false,
+      ingredients: mockIngredients
+    });
   });
 
-  it('тест на ошибку getIngredients', () => {
+  it('should handle error state for getIngredients', () => {
     const action = {
       type: getIngredients.rejected.type,
       error: { message: 'Error' }
     };
-    const state = ingredientsSlice.reducer(
-      { ...initialState, isLoading: true },
-      action
-    );
-    expect(state.isLoading).toBeFalsy();
-    expect(state.error).toBe('Error');
+    const state = ingredientsSlice.reducer(initialState, action);
+    expect(state).toEqual({
+      ...initialState,
+      isLoading: false,
+      error: 'Error'
+    });
   });
 });

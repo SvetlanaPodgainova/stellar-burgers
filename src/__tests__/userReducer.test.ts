@@ -13,24 +13,24 @@ const mockUser = {
 
 const mockIsAuthChecked = true;
 
-describe('тест пользователя', () => {
-  it('проверка начального состояния', () => {
+describe('user slice tests', () => {
+  it('should verify initial state', () => {
     expect(userSlice.reducer(undefined, { type: '' })).toEqual(initialState);
   });
 
-  it('тест сохранения данных пользователя', () => {
+  it('should save user data', () => {
     const action = userSlice.actions.setUser(mockUser);
     const state = userSlice.reducer(initialState, action);
     expect(state.user).toEqual(mockUser);
   });
 
-  it('проверка isAuthChecked', () => {
+  it('should check isAuthChecked', () => {
     const action = userSlice.actions.setIsAuthChecked(mockIsAuthChecked);
     const newState = userSlice.reducer(initialState, action);
     expect(newState.isAuthChecked).toEqual(mockIsAuthChecked);
   });
 
-  it('тест на загрузку запроса registerUser', () => {
+  it('should handle pending state for registerUser  request', () => {
     const action = { type: registerUser.pending.type };
     const state = userSlice.reducer(initialState, action);
     expect(state).toEqual({
@@ -39,15 +39,12 @@ describe('тест пользователя', () => {
     });
   });
 
-  it('тест на выполнение запроса registerUser', () => {
+  it('should handle fulfilled state for registerUser  request', () => {
     const action = {
       type: registerUser.fulfilled.type,
       payload: mockUser
     };
-    const state = userSlice.reducer(
-      { ...initialState, isLoading: true },
-      action
-    );
+    const state = userSlice.reducer(initialState, action);
     expect(state).toEqual({
       ...initialState,
       isLoading: false,
@@ -56,15 +53,12 @@ describe('тест пользователя', () => {
     });
   });
 
-  it('тест на ошибку запроса registerUser', () => {
+  it('should handle error state for registerUser  request', () => {
     const action = {
       type: registerUser.rejected.type,
       error: { message: 'Error' }
     };
-    const state = userSlice.reducer(
-      { ...initialState, isLoading: true },
-      action
-    );
+    const state = userSlice.reducer(initialState, action);
     expect(state).toEqual({
       ...initialState,
       isLoading: false,
@@ -73,7 +67,7 @@ describe('тест пользователя', () => {
     });
   });
 
-  it('тест на загрузку запроса loginUser', () => {
+  it('should handle pending state for loginUser  request', () => {
     const action = { type: loginUser.pending.type };
     const state = userSlice.reducer(initialState, action);
     expect(state).toEqual({
@@ -82,15 +76,12 @@ describe('тест пользователя', () => {
     });
   });
 
-  it('тест на выполнение запроса loginUser', () => {
+  it('should handle fulfilled state for loginUser  request', () => {
     const action = {
       type: loginUser.fulfilled.type,
       payload: mockUser
     };
-    const state = userSlice.reducer(
-      { ...initialState, isLoading: true },
-      action
-    );
+    const state = userSlice.reducer(initialState, action);
     expect(state).toEqual({
       ...initialState,
       isLoading: false,
@@ -99,15 +90,12 @@ describe('тест пользователя', () => {
     });
   });
 
-  it('тест на ошибку запроса loginUser', () => {
+  it('should handle error state for loginUser  request', () => {
     const action = {
-      type: registerUser.rejected.type,
+      type: loginUser.rejected.type,
       error: { message: 'Error' }
     };
-    const state = userSlice.reducer(
-      { ...initialState, isLoading: true },
-      action
-    );
+    const state = userSlice.reducer(initialState, action);
     expect(state).toEqual({
       ...initialState,
       isLoading: false,
@@ -116,7 +104,7 @@ describe('тест пользователя', () => {
     });
   });
 
-  it('тест на загрузку запроса updateUser', () => {
+  it('should handle pending state for updateUser  request', () => {
     const action = { type: updateUser.pending.type };
     const state = userSlice.reducer(initialState, action);
     expect(state).toEqual({
@@ -125,15 +113,12 @@ describe('тест пользователя', () => {
     });
   });
 
-  it('тест на выполнение запроса updateUser', () => {
+  it('should handle fulfilled state for updateUser  request', () => {
     const action = {
       type: updateUser.fulfilled.type,
       payload: mockUser
     };
-    const state = userSlice.reducer(
-      { ...initialState, isLoading: true },
-      action
-    );
+    const state = userSlice.reducer(initialState, action);
     expect(state).toEqual({
       ...initialState,
       isLoading: false,
@@ -142,15 +127,12 @@ describe('тест пользователя', () => {
     });
   });
 
-  it('тест на ошибку запроса updateUser', () => {
+  it('should handle error state for updateUser  request', () => {
     const action = {
       type: updateUser.rejected.type,
       error: { message: 'Error' }
     };
-    const state = userSlice.reducer(
-      { ...initialState, isLoading: true },
-      action
-    );
+    const state = userSlice.reducer(initialState, action);
     expect(state).toEqual({
       ...initialState,
       isLoading: false,
@@ -159,7 +141,7 @@ describe('тест пользователя', () => {
     });
   });
 
-  it('тест на загрузку запроса logoutUser', () => {
+  it('should handle pending state for logoutUser  request', () => {
     const action = { type: logoutUser.pending.type };
     const state = userSlice.reducer(initialState, action);
     expect(state).toEqual({
@@ -169,7 +151,7 @@ describe('тест пользователя', () => {
     });
   });
 
-  it('тест на выполнение запроса logoutUser', () => {
+  it('should handle fulfilled state for logoutUser  request', () => {
     const action = {
       type: logoutUser.fulfilled.type
     };
@@ -177,15 +159,12 @@ describe('тест пользователя', () => {
     expect(state).toEqual(initialState);
   });
 
-  it('тест на ошибку запроса logoutUser', () => {
+  it('should handle error state for logoutUser  request', () => {
     const action = {
       type: logoutUser.rejected.type,
       error: { message: 'Error' }
     };
-    const state = userSlice.reducer(
-      { ...initialState, isLoading: true },
-      action
-    );
+    const state = userSlice.reducer(initialState, action);
     expect(state).toEqual({
       ...initialState,
       isLoading: false,
