@@ -13,7 +13,7 @@ export const registerUser = createAsyncThunk(
     });
     setCookie('accessToken', response.accessToken);
     localStorage.setItem('refreshToken', response.refreshToken);
-    return response;
+    return response.user;
   }
 );
 
@@ -23,7 +23,7 @@ export const loginUser = createAsyncThunk(
     const response = await api.loginUserApi({ email, password });
     setCookie('accessToken', response.accessToken);
     localStorage.setItem('refreshToken', response.refreshToken);
-    return response;
+    return response.user;
   }
 );
 
@@ -31,7 +31,7 @@ export const updateUser = createAsyncThunk(
   'user/updateUser',
   async (data: Partial<TRegisterData>) => {
     const res = await api.updateUserApi(data);
-    return res;
+    return res.user;
   }
 );
 

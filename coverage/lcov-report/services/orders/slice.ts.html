@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for services/ingredients/slice.ts</title>
+    <title>Code coverage report for services/orders/slice.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">services/ingredients</a> slice.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">services/orders</a> slice.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">95.55% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/44</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>4/5</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>43/45</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>4/4</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">50% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">95.55% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/44</span>
+                <span class='fraction'>43/45</span>
             </div>
         
             
@@ -107,7 +107,8 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -138,6 +139,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -150,51 +153,51 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
-import { TIngredient } from '../../utils/types';
-import { getIngredients } from './actions';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createSlice } from '@reduxjs/toolkit';
+import { TOrder } from '../../utils/types';
+import { getOrderByNumber, getOrders } from './action';
 &nbsp;
-type TIngredientsState = {
-  ingredients: TIngredient[];
+type TOrdersState = {
+  orders: TOrder[];
+  order: TOrder | null;
   isLoading: boolean;
-  error: string | null;
 };
 &nbsp;
-export const initialState: TIngredientsState = {
-  ingredients: [],
-  isLoading: false,
-  error: null
+export const initialState: TOrdersState = {
+  orders: [],
+  order: null,
+  isLoading: false
 };
 &nbsp;
-export const ingredientsSlice = createSlice({
-  name: 'ingredients',
+export const ordersSlice = createSlice({
+  name: 'ordersBurger',
   initialState,
   reducers: {},
-  selectors: {
-    selectIngredients: <span class="fstat-no" title="function not covered" >(state) =&gt; state.</span>ingredients,
-    selectIsLoadingIngredients: <span class="fstat-no" title="function not covered" >(state) =&gt; state.</span>isLoading
-  },
   extraReducers: (builder) =&gt; {
     builder
-      .addCase(getIngredients.pending, (state) =&gt; {
+      .addCase(getOrders.pending, (state) =&gt; {
+        state.orders = [];
         state.isLoading = true;
-        state.error = null;
       })
-      .addCase(getIngredients.fulfilled, (state, action) =&gt; {
+      .addCase(getOrders.fulfilled, (state, action) =&gt; {
+        state.orders = action.payload;
         state.isLoading = false;
-        state.error = null;
-        state.ingredients = action.payload;
       })
-      .addCase(getIngredients.rejected, (state, action) =&gt; {
+      .addCase(getOrderByNumber.pending, (state) =&gt; {
+<span class="cstat-no" title="statement not covered" >        state.order = null;</span>
+<span class="cstat-no" title="statement not covered" >        state.isLoading = true;</span>
+      })
+      .addCase(getOrderByNumber.fulfilled, (state, action) =&gt; {
+        state.order = action.payload;
         state.isLoading = false;
-        state.error = action.error.message<span class="branch-0 cbranch-no" title="branch not covered" > ?? null;</span>
       });
+  },
+  selectors: {
+    selectOrders: <span class="fstat-no" title="function not covered" >(state) =&gt; state</span>
   }
 });
 &nbsp;
-export const { selectIngredients, selectIsLoadingIngredients } =
-  ingredientsSlice.selectors;
+export const { selectOrders } = ordersSlice.selectors;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

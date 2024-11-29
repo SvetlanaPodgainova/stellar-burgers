@@ -42,11 +42,13 @@ export const userSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.error = null;
-        state.user = action.payload.user;
+        state.user = action.payload;
         state.isAuthChecked = true;
+        state.isLoading = false;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.error = action.error.message ?? null;
+        state.isLoading = false;
         state.isAuthChecked = true;
       })
       // логин
@@ -58,7 +60,8 @@ export const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.error = null;
         state.isAuthChecked = true;
-        state.user = action.payload.user;
+        state.isLoading = false;
+        state.user = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.error = action.error.message ?? null;
@@ -68,20 +71,23 @@ export const userSlice = createSlice({
       .addCase(updateUser.pending, (state) => {
         state.isLoading = true;
         state.error = null;
-        state.isAuthChecked = true;
+        state.isAuthChecked = false;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.error = null;
+        state.isLoading = false;
         state.isAuthChecked = true;
-        state.user = action.payload.user;
+        state.user = action.payload;
       })
       .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
         state.error = null;
         state.isAuthChecked = true;
         state.error = action.error.message ?? null;
       })
       // логаут
       .addCase(logoutUser.pending, (state) => {
+        state.isLoading = true;
         state.error = null;
         state.isAuthChecked = true;
       })
@@ -89,6 +95,7 @@ export const userSlice = createSlice({
         state.user = null;
       })
       .addCase(logoutUser.rejected, (state, action) => {
+        state.isLoading = false;
         state.isAuthChecked = true;
         state.error = action.error.message ?? null;
       });

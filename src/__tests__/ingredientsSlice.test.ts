@@ -53,7 +53,7 @@ describe('тест ingredientsSlice', () => {
   it('тест на загрузку getIngredients', () => {
     const action = { type: getIngredients.pending.type };
     const state = ingredientsSlice.reducer(initialState, action);
-    expect(state.isLoading).toBe(true);
+    expect(state.isLoading).toBeTruthy();
     expect(state.error).toBeNull();
   });
 
@@ -62,8 +62,11 @@ describe('тест ingredientsSlice', () => {
       type: getIngredients.fulfilled.type,
       payload: mockIngredients
     };
-    const state = ingredientsSlice.reducer(initialState, action);
-    expect(state.isLoading).toBe(false);
+    const state = ingredientsSlice.reducer(
+      { ...initialState, isLoading: true },
+      action
+    );
+    expect(state.isLoading).toBeFalsy();
     expect(state.error).toBeNull();
   });
 
@@ -72,8 +75,11 @@ describe('тест ingredientsSlice', () => {
       type: getIngredients.rejected.type,
       error: { message: 'Error' }
     };
-    const state = ingredientsSlice.reducer(initialState, action);
-    expect(state.isLoading).toBe(false);
+    const state = ingredientsSlice.reducer(
+      { ...initialState, isLoading: true },
+      action
+    );
+    expect(state.isLoading).toBeFalsy();
     expect(state.error).toBe('Error');
   });
 });
