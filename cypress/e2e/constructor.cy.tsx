@@ -26,7 +26,7 @@ describe('Оформление заказа через конструктор', 
   });
 
   it('Тест на оформление заказа пользователем', () => {
-    // открытие и закрытие мдоального окна по клику на крести и на оверлей
+    // открытие и закрытие модального окна по клику на крестик и на оверлей
     cy.wait('@getIngredients');
     cy.get('[data-cy="ingredient-link"]').as('ingredient-link');
     cy.get('@ingredient-link').filter(`:contains("${buns}")`).find('a').click();
@@ -50,7 +50,7 @@ describe('Оформление заказа через конструктор', 
     cy.get('[data-cy="burger-bun"]').as('burger-bun');
     cy.get('@burger-bun').contains(buns);
 
-    // добавление ингредиент в контсруктор
+    // добавление ингредиент в конструктор
     cy.get('@ingredient-link')
       .filter(`:contains("${ingredient}")`)
       .find('button')
