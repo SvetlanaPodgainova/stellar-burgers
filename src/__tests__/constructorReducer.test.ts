@@ -5,7 +5,6 @@ import {
   moveIngredientDown,
   constructorSlice,
   initialState,
-  TConstructorState,
   resetBurgerConstructor
 } from '../services/burgerConstructor/slice';
 
@@ -82,7 +81,7 @@ describe('constructorSlice tests', () => {
       bun: mockBun,
       ingredients: [
         {
-          _id: '643d69a5c3f7b9001cfa0946', // Добавьте все необходимые поля
+          _id: '643d69a5c3f7b9001cfa0946',
           name: 'Хрустящие минеральные кольца',
           type: 'main',
           proteins: 808,
@@ -98,7 +97,7 @@ describe('constructorSlice tests', () => {
           id: 'ingredient-1'
         },
         {
-          _id: '643d69a5c3f7b9001cfa0944', // Добавьте все необходимые поля
+          _id: '643d69a5c3f7b9001cfa0944',
           name: 'Соус традиционный галактический',
           type: 'sauce',
           proteins: 42,
@@ -155,7 +154,7 @@ describe('constructorSlice tests', () => {
       ]
     };
 
-    const action = moveIngredientUp(1); // Перемещаем второй ингредиент (индекс 1) вверх
+    const action = moveIngredientUp(1);
     const state = constructorSlice.reducer(initialStateWithIngredients, action);
 
     expect(state.ingredients).toEqual([
@@ -225,7 +224,7 @@ describe('constructorSlice tests', () => {
       ]
     };
 
-    const action = moveIngredientDown(0); // Перемещаем первый ингредиент (индекс 0) вниз
+    const action = moveIngredientDown(0);
     const state = constructorSlice.reducer(initialStateWithIngredients, action);
 
     expect(state.ingredients).toEqual([
